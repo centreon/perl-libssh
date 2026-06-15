@@ -732,7 +732,7 @@ sub init_scenario {
 
     if (defined($options{interactive}) && $options{interactive} =~ /1/) {
         $self->channel_request_pty(channel => ${$self->{channels}->{$channel_id}});
-        $self->channel_change_pty_size(channel => ${$self->{channels}->{$channel_id}}, cols => 80, rows => 24);
+        $self->channel_change_pty_size(channel => ${$self->{channels}->{$channel_id}}, cols => $options{cols}, rows => $options{rows});
         $self->channel_request_shell(channel => ${$self->{channels}->{$channel_id}});
     }
 
@@ -784,9 +784,13 @@ sub execute_scenario_read_channel {
 
 sub execute_scenario {
     my ($self, %options) = @_;
+    my $cols = (defined($options{pty}->{cols}) && int($options{pty}->{cols}) > 0) ? 
+        $options{pty}->{cols} : 80;
+    my $rows = (defined($options{pty}->{rows}) && int($options{pty}->{rows}) > 0) ? 
+        $options{pty}->{rows} : 24;
 
     $self->{scenario} = { exit => SSH_OK, msg_error => '', stdout => '', stderr => '', steps => [] };
-    my $channel_id = $self->init_scenario(interactive => $options{interactive});
+    my $channel_id = $self->init_scenario(interactive => $options{interactive}, cols => $cols, rows => $rows);
     if (!defined($channel_id)) {
         return $self->{scenario};
     }
