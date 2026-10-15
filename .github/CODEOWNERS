@@ -1,0 +1,22 @@
+*                       @centreon/owners-connectors
+
+*.pm                    @centreon/owners-perl
+*.pl                    @centreon/owners-perl
+*.t                     @centreon/owners-perl
+*.xs                    @centreon/owners-perl
+Makefile.PL             @centreon/owners-perl
+
+# Pipelines Codeowners rules
+.github/**                    @centreon/owners-pipelines
+.yamlfix.toml                 @centreon/owners-pipelines
+
+# Security Codeowners rules
+.githooks/pre-commit                 @centreon/owners-security
+.githooks/pre-commit.d/*_gitleaks.sh @centreon/owners-security
+.githooks/pre-push                   @centreon/owners-security
+.githooks/pre-push.d/*_gitleaks.sh   @centreon/owners-security
+.gitleaks.toml                       @centreon/owners-security
+.gitleaksignore                      @centreon/owners-security
+**/dependency-analysis.yml           @centreon/owners-security
+**/gitleaks-analysis.yml             @centreon/owners-security
+**/secu-*.yml                        @centreon/owners-security
